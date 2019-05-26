@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  
+    <script type="text/javascript" src="date-picker-control\datepickercontrol.js"></script>
+    <link type="text/css" rel="stylesheet" href="date-picker-control\datepickercontrol.css">
+
+  <link href="img/favicon.ico" rel="shortcut icon">
+  <script>
+    function validar() {
+      var nombre = document.getElementById("nombre").value;
+      var apellidos = document.getElementById("apellidos").value;
+      var pwd = document.getElementById("pwd").value;
+      var email = document.getElementById("email").value;
+      var fecha = document.getElementById('DPC_edit1_DD/MM/YYYY').value;
+      var provincia = document.getElementById("provincia").value;
+     
+      var valido = true;
+      if (nombre.length == 0 || parseInt(nombre)) {
+        document.getElementById("nombreHelp").style.visibility = "visible";
+        valido = false;
+      }
+     
+      if (apellidos.length == 0 || parseInt(apellidos)) {
+        document.getElementById("apellidosHelp").style.visibility = "visible";
+        valido = false;
+      }
+    
+      if ((pwd.length < 8) || (pwd.length > 24) ||            /* entre 8 y 24 caracteres */
+        !/[a-zñ]/.test(pwd) || !/[A-ZÑ]/.test(pwd) || /* minúscula y mayúscula */
+        !/[0-9]/.test(pwd) ||                       /* dígito numérico obligatorio */
+        !/[.,:;-_?¿+@]/.test(pwd)                    /* caracteres especiales obligatorio */
+      ) {
+        document.getElementById("pwdHelp").style.visibility = "visible";
+        valido = false;
+      }
+     
+      if (!(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email))) {
+     document.getElementById("emailHelp").style.visibility="visible"
+   	 correcto=false
+   }
+    
+      if (fecha == "") {
+        document.getElementById("fechaNacHelp").style.visibility = "visible";
+        valido = false;
+      }
+    
+      if (provincia == 0) {
+        document.getElementById("provinciaHelp").style.visibility = "visible";
+        valido = false;
+      }
+    
+      if (!aceptar.checked) {
+        document.getElementById("aceptarHelp").style.visibility = "visible";
+        valido = false;
+      }
+      return valido;
+    }
+
+    function quitarError(msg) {
+    
+      document.getElementById(msg).style.visibility = "hidden";
+    }
+
+    function limpiarResultado() {
+     
+      document.getElementById('resultado').innerHTML = "";
+    }
+  </script>
+  <title>F1</title>
+
+  <style>
+    small {
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body class="bg-dark">
+  <div class="container-fluid bg-light p-5">
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top">
+      <a class="navbar-brand" href="#"><img src="img/4421673803_7d7c2ba9b3_z.jpg" width="75"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="#card">Campeón</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#info">Más información</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#campeones">Lista campeones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#escuderias">Lista escuderias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#circuitos">Lista circuitos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#formulario">Formulario <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#donde">Contacto</a>
+          </li>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+    <!--CAROUSEL-->
+    <div id="carouselExampleIndicators" class="carousel slide py-5" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="img/carousel.jpg" class="d-block w-100" alt="">
+        </div>
+
+        <div class="carousel-item">
+          <img src="img/carousel2.jpg" class="d-block w-100" alt="">
+        </div>
+        <div class="carousel-item">
+          <img src="img/carousel1.jpg" class="d-block w-100" alt="">
+        </div>
+        <div class="carousel-item">
+          <img src="img/carousel3.jpg" class="d-block w-100" alt="">
+        </div>
+        <div class="carousel-item">
+          <img src="img/1135760757_preview_515220_screenshots_20170825021333_1.jpg" class="d-block w-100" alt="">
+        </div>
+        <div class="carousel-item">
+          <img src="img/Ferrari_Formula_1_lineup_at_the_Nürburgring.jpg" class="d-block w-100" alt="">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+    <!--CARD DECK-->
+    <div class="card-deck py-5" id="card">
+      <div class="card border-0 p-2">
+        <img src="img/Lewis_Hamilton_2014_China.jpg" class="card-img-top rounded" alt="Hamilton">
+        <div class="card-body">
+          <h5 class="card-title">Vigente campeón</h5>
+          <p class="card-text">Lewis Hamilton es el vigente campeón de F1, consiguiendo revalidar el título y alcanzando
+            la cantidad de 5 mundiales conquistados.</p>
+        </div>
+      </div>
+      <div class="card border-0 p-2">
+        <img src="img/Sebastian_Vettel_2015_Malaysia_podium_2.jpg" class="card-img-top rounded" alt="Vettel">
+        <div class="card-body">
+          <h5 class="card-title">Sub campeón</h5>
+          <p class="card-text">Vettel quedó subcampeón al no ser capaz de arrebatarle la corona al vigente campeón,
+            Lewis Hamilton.</p>
+        </div>
+      </div>
+      <div class="card border-0 p-2">
+        <img src="img/1280px-2019_Formula_One_Test_Days_-_Valtteri_Bottas_Mercedes_F1_W10.jpg"
+          class="card-img-top rounded-pill" alt="Mercedes">
+        <div class="card-body">
+          <h5 class="card-title">Título de constructores</h5>
+          <p class="card-text">Actualmente, Mercedes es la escudería campeona de la categoría, al rehacerse con el
+            título de constructores por 5º año consecutivo.</p>
+        </div>
+      </div>
+    </div>
+    <!--JUMBOTRON-->
+    <div class="jumbotron" id="info">
+      <h1 class="display-4">F1</h1>
+      <hr class="my-4">
+      <p>La Formula 1 es actualmente la categoría reina de los monoplazas.</p>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Propiedad de Liberty Media
+      </button>
+      <a class="btn btn-primary " href="https://es.wikipedia.org/wiki/F%C3%B3rmula_1" target="_blank" role="button">Leer
+        más</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Liberty Media</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Liberty Media Corporation es una empresa norteamericana de medios de comunicación de masas controlada por su
+            presidente y propietario, John C. Malone, quien posee la mayoría de las acciones. Forma parte del índice
+            NASDAQ-100. El 2008, el grupo News Corporation de Rupert Murdoch vendió sus acciones a John C. Malone.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--TABLE-->
+    <table class="table table-striped table-dark" id="campeones">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Títulos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Michael</td>
+          <td>Schumacher</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Juan Manuel</td>
+          <td>Fangio</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Lewis</td>
+          <td>Hamilton</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Sebastian</td>
+          <td>Vettel</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>Alain</td>
+          <td>Prost</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>Jack</td>
+          <td>Brabham</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>Jackie</td>
+          <td>Stewart</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>Niki</td>
+          <td>Lauda</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>Nelson</td>
+          <td>Piquet</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>Ayrton</td>
+          <td>Senna</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th scope="row">11</th>
+          <td>Alberto</td>
+          <td>Ascari</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th scope="row">12</th>
+          <td>Jim</td>
+          <td>Clark</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th scope="row">13</th>
+          <td>Graham</td>
+          <td>Hill</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th scope="row">14</th>
+          <td>Emerson</td>
+          <td>Fittipaldi</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th scope="row">15</th>
+          <td>Mika</td>
+          <td>Häkknen</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th scope="row">16</th>
+          <td>Fernando</td>
+          <td>Alonso</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th scope="row">17</th>
+          <td>Giuseppe</td>
+          <td>Farina</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">18</th>
+          <td>Mike</td>
+          <td>Hawthorn</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">19</th>
+          <td>Phil</td>
+          <td>Hill</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">20</th>
+          <td>John</td>
+          <td>Surtees</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">21</th>
+          <td>Denny</td>
+          <td>Hulme</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">22</th>
+          <td>Jochen</td>
+          <td>Rindt</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">23</th>
+          <td>James</td>
+          <td>Hunt</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">24</th>
+          <td>Mario</td>
+          <td>Andretti</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">25</th>
+          <td>Jody</td>
+          <td>Scheckter</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">26</th>
+          <td>Alan</td>
+          <td>Jones</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">27</th>
+          <td>Keke</td>
+          <td>Rosberg</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">28</th>
+          <td>Nigel</td>
+          <td>Mansell</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">29</th>
+          <td>Damon</td>
+          <td>Hill</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">30</th>
+          <td>Jacques</td>
+          <td>Villeneuve</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">31</th>
+          <td>Kimi</td>
+          <td>Räikkönen</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">32</th>
+          <td>Jenson</td>
+          <td>Button</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">33</th>
+          <td>Nico</td>
+          <td>Rosberg</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <section id="escuderias">
+      <!--ESCUDERIAS-->
+      <div class="container-fluid bg-light mt-3 p-3 text-center">
+        <h1 class="text-center">Lista Escuderias</h1>
+        <div class="row">
+          <div class="col-md"></div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img
+              src="img/Mercedes_AMG_Petronas_F1_Logo.svg.png" class="col-md col-sm-12">
+            <h6>Mercedes AMG Petronas Motorsport</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/ferrari.jpg"
+              class="col-md col-sm-12">
+            <h6>Mission Winnow Scuderia Ferrari</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/Red_Bull_Racing_logo_ita.svg.png"
+              class="col-md col-sm-12">
+            <h6>Aston Martin Red Bull Racing</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/Renault_Sport_F1_Team_logo.png"
+              class="col-md col-sm-12">
+            <h6>Renault F1 Team</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/Logo_Haas_F1.png"
+              class="col-md col-sm-12">
+            <h6>Rich Energy Haas F1 Team</h6>
+          </div>
+          <div class="col-md"></div>
+        </div>
+        <div class="row">
+          <div class="col-md"></div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/McLaren_Automotive_Logo.svg"
+              class="col-md col-sm-12">
+            <h6>McLaren F1 Team</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img
+              src="img/SportPesa-Racing-Point-logo-2019.jpg" class="col-md col-sm-12">
+            <h6>SportPesa Racing Point F1 Team</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/AlfaRomeoF1logo-2019.jpg"
+              class="col-md col-sm-12">
+            <h6>Alfa Romeo Racing</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/toro rosso.jpg"
+              class="col-md col-sm-12">
+            <h6>Red Bull Toro Rosso Honda</h6>
+          </div>
+          <div class="col-md-2 col-sm-12 border m-1 p-3 align-middle"><img src="img/williams.png"
+              class="col-md col-sm-12">
+            <h6>ROKiT Williams Racing</h6>
+          </div>
+          <div class="col-md"></div>
+        </div>
+      </div>
+    </section>
+    <!--CIRCUITOS-->
+    <section id="circuitos">
+      <div class="container-fluid bg-dark text-light text-center mt-3 p-3">
+        <h1 class="text-center">Lista Circuitos</h1>
+        <div class="row">
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_albert-park-2018__pequenio__pinned.png"
+              class="col-md col-sm-12">
+            <h3>GP de Australia</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_sakhir-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Bahréin </h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_shangai-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de China</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_baku-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Azerbaiyán </h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_montmelo-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de España</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_monaco-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Mónaco</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_gilles-villeneuve-2019__pinned.png"
+              class="col-md col-sm-12">
+            <h3>GP de Canadá</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_paulricard-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Francia</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_red-bull-ring-2019__pinned.png"
+              class="col-md col-sm-12">
+            <h3>GP de Austria</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_silverstone-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Gran Bretaña</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_hockenheim-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Alemania</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_hungaroring-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Hungría</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_spa-francorchamps-2019__pinned.png"
+              class="col-md col-sm-12">
+            <h3>GP de Bélgica</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_monza-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Italia</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_hermanos-rodriguez-2019__pinned.png"
+              class="col-md col-sm-12">
+            <h3>GP de Singapur</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_sochi-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Rusia</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_suzuka-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Japón</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_albert-park-2018__pequenio__pinned.png"
+              class="col-md col-sm-12">
+            <h3>GP de México</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_austin-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Estados Unidos</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_interlagos-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Brasil</h3>
+          </div>
+          <div class="col-md-4 col-sm-12"><img src="img/circuito_yas-marina-2019__pinned.png" class="col-md col-sm-12">
+            <h3>GP de Abu Dhabi</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--FORMULARIO-->
+    <form class="border border-primary mt-3 p-3 bg-primary text-light" id="formulario" method="POST" action="" onsubmit="return validar();">
+ 
+        <div class="row">
+          <!-- Grid responsive dentro del container -->
+          <div class="mx-auto col-lg-6 col-sm-12">
+            <div class="form-group">
+              <label for="nombre">Nombre:(*) </label>
+              <input type="input" class="form-control" id="nombre" placeholder="Introduce nombre"
+                onchange="quitarError('nombreHelp')">
+              <small id="nombreHelp" class="form-text text-danger">Campo alfanumérico y obligatorio</small>
+            </div>
+            <div class="form-group">
+              <label for="apellidos">Apellidos:(*) </label>
+              <input type="input" class="form-control" id="apellidos" placeholder="Introduce apellidos"
+                onchange="quitarError('apellidosHelp')">
+              <small id="apellidosHelp" class="form-text text-danger">Campo alfanumérico y obligatorio</small>
+            </div>
+            <div class="form-group">
+              <label for="pwd">Contraseña:(*) </label>
+              <input type="password" class="form-control" id="pwd" placeholder="Introduce contraseña"
+                onchange="quitarError('pwdHelp')">
+              <small id="pwdHelp" class="form-text text-danger">Contraseña errónea</small>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:(*) </label>
+              <input type="input" class="form-control" id="email" placeholder="Email"
+                onchange="quitarError('emailHelp')">
+              <small id="emailHelp" class="form-text text-danger">Introduzca un email válido</small>
+            </div>
+          </div>
+          <div class="mx-auto col-lg-6 col-sm-12">
+            
+            <div class="form-group">
+              <label for="fechaNac">Fecha de nacimiento:(*) </label>
+              <input type="text" class="form-control" id="DPC_edit1_DD/MM/YYYY" placeholder="Introduce fecha ingreso"
+                onchange="quitarError('fechaNacHelp')">
+              <small id="fechaNacHelp" class="form-text text-danger">Fecha obligatoria</small>
+            </div>
+           
+            <div class="form-group">
+              <label for="provincia">Provincia:(*)</label>
+              <select class="form-control" id="provincia" onchange="quitarError('provinciaHelp')">
+                <option value="0">--Elija provincia</option>
+                <option value="29">Málaga</option>
+                <option value="18">Granada</option>
+                <option value="4">Almería</option>
+                <option value="6">Huelva</option>
+                <option value="1">Jaén</option>
+                <option value="52">Córdoba</option>
+                <option value="9">Cádiz</option>
+                <option value="53">Sevilla</option>
+              </select>
+              <small id="provinciaHelp" class="form-text text-danger">Debe elegir provincia</small>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input mt-5 pt-5" id="aceptar"
+                onchange="quitarError('aceptarHelp')">
+              <label class="form-check-label  pt-5 ml-2" for="aceptar"><a href="" data-toggle="modal"
+                  data-target="#confidencialidad" class="text-light">Acepto la política de confidencialidad</a></label>
+              <small id="aceptarHelp" class="form-text text-danger">Es obligatorio marcar esta casilla</small>
+            </div>
+            <!-- Modal de Bootstrap -->
+            <div class="modal fade text-dark" id="confidencialidad" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Política de confidencialidad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      En el tratamiento de tus datos personales, el Titular aplicará los siguientes principios que se ajustan
+                      a las exigencias del nuevo reglamento europeo de protección de datos:
+      
+                      Principio de licitud, lealtad y transparencia: El Titular siempre requerirá el consentimiento para el
+                      tratamiento de tus datos personales que puede ser para uno o varios fines específicos sobre los que te
+                      informará previamente con absoluta transparencia.
+                      Principio de minimización de datos: El Titular te solicitará solo los datos estrictamente necesarios
+                      para el fin o los fines que los solicita.
+                      Principio de limitación del plazo de conservación: Los datos se mantendrán durante el tiempo
+                      estrictamente necesario para el fin o los fines del tratamiento.
+                      El Titular te informará del plazo de conservación correspondiente según la finalidad. En el caso de
+                      suscripciones, el Titular revisará periódicamente las listas y eliminará aquellos registros inactivos
+                      durante un tiempo considerable.
+                      Principio de integridad y confidencialidad: Tus datos serán tratados de tal manera que su seguridad,
+                      confidencialidad e integridad esté garantizada.
+                      Debes saber que el Titular toma las precauciones necesarias para evitar el acceso no autorizado o uso
+                      indebido de los datos de sus usuarios por parte de terceros.
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success ml-3" onclick="limpiarResultado()">Calcula</button>
+        </div>
+      </form>
+
+    <section id="donde">
+      <!--CONTACTO-->
+      <div class="container-fluid bg-light text-dark mt-3 p-5 rounded">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <dl class="text-center p-5">
+              <dt>Dirección:</dt>
+              <dd>C/ Marie Curie nº 10</dd>
+              <dt>Correo:</dt>
+              <dd>cristian.lobo.marrozos@gmail.com</dd>
+              <dt>Teléfono:</dt>
+              <dd>6983736</dd>
+              <dd></dd>
+            </dl>
+          </div>
+          <div class="col-md-6 col-sm-12 embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.4263188198856!2d-4.551777884711886!3d36.73633687996175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72f032e293b691%3A0xbddfd47a7f8b8145!2sCalle+de+Marie+Curie%2C+10%2C+29590+M%C3%A1laga!5e0!3m2!1ses!2ses!4v1549625626826"
+              width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>
